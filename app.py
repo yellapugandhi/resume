@@ -46,7 +46,7 @@ Return only the improved resume, without any explanation.
 """
             try:
                 response = client.chat.completions.create(
-                    model="gpt-4",
+                    model="gpt-3.5-turbo",
                     messages=[
                         {"role": "system", "content": "You are a resume optimization expert."},
                         {"role": "user", "content": prompt}
