@@ -1,15 +1,15 @@
 import streamlit as st
-from openai import openai
+from openai import  OpenAI
 import os
 from resume_input_handler import get_resume_input
 
 # Initialize OpenAI client
-client = openai()
+client = OpenAI()
 
 # Set your OpenAI API key
-openai.api_key = os.getenv("OPENAI_API_KEY")
+OpenAI.api_key = os.getenv("OPENAI_API_KEY")
 
-if not openai.api_key:
+if not OpenAI.api_key:
     st.error("OpenAI API key not found. Please set it in secrets.toml or environment variables.")
     st.stop()
 
