@@ -1,10 +1,13 @@
 import streamlit as st
-import openai
+from openai import openai
 import os
-from resume_input_handler import get_resume_input  # <- Import your helper module
+from resume_input_handler import get_resume_input
+
+# Initialize OpenAI client
+client = openai()
 
 # Set your OpenAI API key
-openai.api_key =  os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 if not openai.api_key:
     st.error("OpenAI API key not found. Please set it in secrets.toml or environment variables.")
@@ -42,7 +45,7 @@ Resume:
 Return only the improved resume, without any explanation.
 """
             try:
-                response = openai.ChatCompletion.create(
+                response = client.chat.completions.create(
                     model="gpt-4",
                     messages=[
                         {"role": "system", "content": "You are a resume optimization expert."},
@@ -51,6 +54,7 @@ Return only the improved resume, without any explanation.
                     temperature=0.7,
                     max_tokens=1500
                 )
+
                 optimized_resume = response.choices[0].message.content.strip()
 
                 st.success("✅ Resume optimized successfully!")
